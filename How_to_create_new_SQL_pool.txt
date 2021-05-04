@@ -1,0 +1,50 @@
+How to create new SQL pool in Synapse Analytics workspace and allow user authorization via Azure Active Directory
+
+STEP 1. Create new SQL pool
+   - login to Azure portal at https://portal.azure.com/
+   - go to Synapse Analytics service page
+   - in the list of Synapse Workspaces click on the one you want to add new SQL pool to
+   - click on the button "+ New dedicated SQL pool"
+   - Enter Dedicated SQL pool name and choose Performance level
+   - opionally configure other additional settings and tags
+   - click "Review and create"
+   - check that your inputs are correct and click "Create"
+
+ The process may take a few minutes. Once it is complete, you will get a notification that recource has been created successfully.
+
+ STEP2. Create DB user for your admin account and grant permissions
+    - login to your new created database 
+        use following connection parameters:
+        - server name: 
+        - authentication: using Azure Active Directory (with MFA - if required)
+        - user name: your Azure account
+        - database: the name of the new SQL pool you created in Step 1
+        NOTE: your account must be a member of corresponding SYNAPSE_SERVER_MANAGER Group, e.g. "GP_DEV_SYNAPSE_SERVER_MANAGER"
+    
+    - execute following TSQL commands:
+
+    CREATE USER [GP_DEV_SYNAPSE_SERVER_MANAGER] FROM EXTERNAL PROVIDER;
+    -- if logged in to target DB
+    GRANT CONTROL TO GP_DEV_SYNAPSE_SERVER_MANAGER;
+    -- if logged in to master DB
+    GRANT CONTROL ON DATABASE::SQLPOOL_TEST29_1 TO GP_DEV_SYNAPSE_SERVER_MANAGER;
+
+STEP3. Manage user access to your new database
+    What you can do: everything as with regular MS SQL database
+    - add new users 
+    - delete users
+    - add user groups
+    - delete user groups
+    grant permisions to users or groups
+    revoke permissions
+
+    CREATE USER [GP_DEV_SYNAPSE_SERVER_MANAGER] FROM EXTERNAL PROVIDER;
+    GRANT CONTROL ON DATABASE::SQLPOOL_TEST29_1 TO GP_DEV_SYNAPSE_SERVER_MANAGER;
+
+
+
+STEP X. Delete SQL pool
+    Everything will be deleted - entire database, sql pool resource, all permissions.
+
+
+

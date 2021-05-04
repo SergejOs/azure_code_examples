@@ -19,7 +19,7 @@ echo $sp_id
 #                   object id == "objectId"
 
 az ad sp show --id  <Service principal name, or object id>
-az ad sp show --id b78012fa-ef8d-4ae7-b9f8-2e2e0120829a
+az ad sp show --id b78012fa-ef8d-4ae7-b9f8-2e345620829a
 
 
 ########## Execute as a user with Read permissions on AD
@@ -28,7 +28,7 @@ az ad sp list --all -o table
 
 # get info about SP  - filter the list - the same info as returned by az ad sp show
 az ad sp list --display-name <ServicePrincipalDisplayName>
-az ad sp list --display-name GP-FA-SynapseDEV-GRDP-001
+az ad sp list --display-name MyServiceProncipal-001
 
 # The appId and tenantId keys that appear in the output are used in service principal authentication / login.
 az ad sp list  --display-name <ServicePrincipalDisplayName> --query "[].{name:appDisplayName, id:appId, tenant:appOwnerTenantId}"

@@ -13,44 +13,46 @@ az role assignment list --all
 az role assignment list --all --assignee "d36efxxx-56xx-45xx-92xx-3e1b2f5eexxx"
 az role assignment list --all --assignee "UserName@Domain.onmicrosoft.com"
 
+# --include-groups --include-inherited
+az role assignment list --all --assignee "UserName@Domain.onmicrosoft.com" --include-groups --include-inherited
 
 ###############################################################################
 # What is assignee (principalId, principalName)
 
 # User: 
-# principalId == objectId
-# principalName == userPrincipalName
+# principalId <== objectId
+# principalName <== userPrincipalName
 
 az ad signed-in-user show
 
-: '     "objectId": "d36ef1dd-56be-4577-92ec-3e1b2f5eec65",
-        "userPrincipalName": "Sergej.Ostashchuk.Admin.C@a1g.onmicrosoft.com",
+: '     "objectId": "d36ef1dd-56be-4577-92ec-3587697844c65",
+        "userPrincipalName": "UserName@Domain.onmicrosoft.com",
 '
-az role assignment list --all --assignee "d36ef1dd-56be-4577-92ec-3e1b2f5eec65"
+az role assignment list --all --assignee "d36ef1dd-56be-4577-92ec-3e15768574565"
 
-: '     "principalId": "d36ef1dd-56be-4577-92ec-3e1b2f5eec65",
-        "principalName": "Sergej.Ostashchuk.Admin.C@a1g.onmicrosoft.com",
+: '     "principalId": "d36ef1dd-56be-4577-92ec-3e1b57684c65",
+        "principalName": "UserName@Domain.onmicrosoft.com",
 '
 
 # Service principal
-# principalId == objectId
-# principalName ==  appId, servicePrincipalNames[0]
+# principalId <== objectId
+# principalName <==  appId, servicePrincipalNames[0]
 
 az ad sp list --display-name GP-FA-SynapseDEV-GRDP-001
 
-        "appDisplayName": "GP-FA-SynapseDEV-GRDP-001",
-        "appId": "b78012fa-ef8d-4ae7-b9f8-2e2e0120829a",
+        "appDisplayName": "GP-SynapseDEV-principal-001",
+        "appId": "b78012fa-ef8d-4ae7-b9f8-2e2e58674899a",
 
-        "objectId": "c550a50c-8039-4c82-8993-ff4a6221ae52",
+        "objectId": "c550a50c-8039-4c82-8993-ff44965879452",
         "objectType": "ServicePrincipal",
 
         "servicePrincipalNames": [
-              "b78012fa-ef8d-4ae7-b9f8-2e2e0120829a"
+              "b78012fa-ef8d-4ae7-b9f8-2e2e354i7429a"
         ],
         "servicePrincipalType": "Application",
 
 
 az role assignment list --all --assignee b78012fa-ef8d-4ae7-b9f8-2e2e0120829a
-        "principalId": "c550a50c-8039-4c82-8993-ff4a6221ae52",
-        "principalName": "b78012fa-ef8d-4ae7-b9f8-2e2e0120829a",
+        "principalId": "c550a50c-8039-4c82-8993-ff4a6878e52",
+        "principalName": "b78012fa-ef8d-4ae7-b9f8-2e2e01298797a",
         "principalType": "ServicePrincipal",
